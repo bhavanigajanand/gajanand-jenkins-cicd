@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: hello-gajanand
-        image: hello-gajanand:latest
-        imagePullPolicy: Never
+        image: bhavanigajannad/hello-gajanand:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
