@@ -11,14 +11,14 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Cloning repository...'
-                git branch: 'main', url: 'https://github.com/YOUR_GITHUB_USERNAME/hello-gajanand.git'
+                git branch: 'main', url: 'https://github.com/bhavanigajanand/gajanand-jenkins-cicd.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 echo 'Building Docker image...'
-                sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ./app'
+                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ./app"
             }
         }
 
@@ -33,8 +33,11 @@ pipeline {
 
         stage('Done') {
             steps {
-                echo 'Deployment complete!'
-                echo "App running at http://$(curl -s ifconfig.me):30007"
+                script {
+                    def ip = sh(script: 'curl -s ifconfig.me', returnStdout: true).trim()
+                    echo "Deployment complete!"
+                    echo "App running at http://${ip}:30007"
+                }
             }
         }
 
